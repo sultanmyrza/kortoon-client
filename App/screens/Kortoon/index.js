@@ -41,9 +41,11 @@ class KortoonList extends Component {
         )}
         {this.state.isLoading || (
           <FlatList
+            style={{ backgroundColor: 'green', width: '100%' }}
             data={this.state.kortoons}
             keyExtractor={(x, i) => i.toString()}
             renderItem={({ item }) => this.renderKortoon(item)}
+            numColumns={3}
           />
         )}
       </View>
