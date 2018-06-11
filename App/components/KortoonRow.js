@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableHighlight
+} from 'react-native';
 
 class KortoonRow extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    let { kortoon } = this.props;
+    let { kortoon, navigation } = this.props;
     return (
       <View style={styles.row}>
-        <TouchableOpacity onPress={() => alert(kortoon.link)}>
+        <TouchableHighlight
+          onPress={() =>
+            navigation.navigate('KortoonDetail', { link: kortoon.link })
+          }
+        >
           <View style={styles.container}>
             <Image source={{ uri: kortoon.photoUrl }} style={styles.image} />
             <View style={styles.info}>
@@ -19,7 +29,7 @@ class KortoonRow extends Component {
               </Text>
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableHighlight>
       </View>
     );
   }
