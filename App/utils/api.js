@@ -15,3 +15,13 @@ export function getKortoon(kortoonId) {
       .catch(error => reject(error));
   });
 }
+
+export function getScenes(kortoonId, episodeId) {
+  return new Promise((resolve, reject) => {
+    return fetch(
+      `${BASE_URL}/api/kortoons/${kortoonId}/episodes/${episodeId}/scenes`
+    )
+      .then(response => resolve(response.json()))
+      .catch(error => reject(error));
+  });
+}

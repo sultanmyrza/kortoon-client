@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 import KortoonList from './KortoonList';
 import KortoonDetail from './KortoonDetail';
+import KortoonScene from './KortoonScene';
 
 const KortoonStackNavigator = createStackNavigator({
   KortoonList: {
@@ -24,6 +25,13 @@ const KortoonStackNavigator = createStackNavigator({
       //   right: 0,
       //   borderBottomWidth: 0
       // }
+    })
+  },
+  KortoonScene: {
+    screen: KortoonScene,
+    navigationOptions: ({ navigation, defaultHeader }) => ({
+      ...defaultHeader,
+      title: 'Kortoon Scene'
     })
   }
 });

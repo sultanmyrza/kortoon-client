@@ -27,7 +27,9 @@ class KortoonDetail extends Component {
   }
   renderEpisodes() {
     try {
-      let episodes = this.state.kortoon.episodes;
+      let { kortoon } = this.state;
+      let episodes = kortoon.episodes;
+      const { navigation } = this.props;
       return (
         <ScrollView style={styles.episodesContainer}>
           <Card>
@@ -46,7 +48,14 @@ class KortoonDetail extends Component {
                     justifyContent: 'space-between'
                   }}
                 >
-                  <TouchableWithoutFeedback onPress={() => alert(episode.url)}>
+                  <TouchableWithoutFeedback
+                    onPress={() =>
+                      navigation.navigate('KortoonScene', {
+                        kortoonId: kortoon._id,
+                        episodeId: episode.episodeIndex
+                      })
+                    }
+                  >
                     <View>
                       <Text>Read</Text>
                     </View>
