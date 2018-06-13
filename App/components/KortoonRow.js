@@ -16,7 +16,7 @@ class KortoonRow extends Component {
     return (
       <View style={styles.row}>
         <TouchableHighlight
-          onPress={() => navigation.navigate('KortoonDetail', { kortoon })}
+          onPress={() => navigation.navigate('KortoonEpisode', { kortoon })}
         >
           <View style={styles.container}>
             <Image source={{ uri: kortoon.photoUrl }} style={styles.image} />
