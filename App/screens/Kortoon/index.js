@@ -1,6 +1,8 @@
+import React from 'react';
+import { Button } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import KortoonList from './KortoonList';
-import KortoonDetail from './KortoonDetail';
+import KortoonEpisode from './KortoonEpisode';
 import KortoonScene from './KortoonScene';
 
 const KortoonStackNavigator = createStackNavigator({
@@ -11,20 +13,25 @@ const KortoonStackNavigator = createStackNavigator({
       title: 'Kortoon List'
     })
   },
-  KortoonDetail: {
-    screen: KortoonDetail,
+  KortoonEpisode: {
+    screen: KortoonEpisode,
     navigationOptions: ({ navigation, defaultHeader }) => ({
-      ...defaultHeader,
-      title: 'Kortoon Detail'
-      // headerStyle: {
-      //   position: 'absolute',
-      //   backgroundColor: 'transparent',
-      //   zIndex: 100,
-      //   top: 0,
-      //   left: 0,
-      //   right: 0,
-      //   borderBottomWidth: 0
-      // }
+      headerLeft: (
+        <Button
+          onPress={() => navigation.goBack()}
+          title="back"
+          color="black"
+        />
+      ),
+      headerStyle: {
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0,
+        borderBottomWidth: 0
+      }
     })
   },
   KortoonScene: {
