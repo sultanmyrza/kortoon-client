@@ -9,62 +9,80 @@ import {
   Dimensions,
   StyleSheet
 } from 'react-native';
+import LottieView from 'lottie-react-native';
 import { getScenes } from '../../utils/api';
 
 const screen = Dimensions.get('window');
+const screenWidth = screen.width;
+const screenHeigh = screen.height;
 const imageWidth = 1209;
-const imageHeigh = 4836;
+const imageHeight = 4836;
 const naturalWidth = 720;
-const naturalHeigh = 2880;
+const naturalHeight = 2880;
 
-const finalWidth = screen.width;
-const finalHeigh = (screen.width * naturalHeigh) / naturalWidth;
+const finalWidth = screenWidth;
+const finalHeigh = (screenWidth * naturalHeight) / naturalWidth;
 
 class KortoonScene extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      images: [],
+      isLoading: true
+    };
   }
 
   componentDidMount() {
+    this.animation.play();
     const { navigation } = this.props;
     const kortoonId = navigation.getParam('kortoonId');
     const episodeId = navigation.getParam('episodeId');
     getScenes(kortoonId, episodeId).then(images => {
-      this.setState({ images });
+      this.setState({ images, isLoading: false });
     });
   }
-  renderImages() {
-    try {
-      console.log(screen.width, screen.height);
-      console.log(imageWidth, imageHeigh);
-      console.log(naturalWidth, naturalHeigh);
-      return (
-        <ScrollView
-          directionalLockEnabled={false}
-          style={{
-            backgroundColor: 'red',
-            flex: 1
-          }}
-        >
-          {this.state.images.map(image => (
-            <Image
-              style={styles.image}
-              key={image.alt}
-              source={{ uri: image.src }}
-            />
-          ))}
-        </ScrollView>
-      );
-    } catch (error) {
-      return <ActivityIndicator size="large" />;
+
+  componentDidUpdate() {
+    if (this.state.isLoading) {
+      this.animation.reset();
     }
   }
+
+  _keyExtractor = (item, index) => item.alt;
+
+  _renderItem = ({ item }) => {
+    console.log(item);
+    return (
+      <Image style={styles.image} key={item.alt} source={{ uri: item.src }} />
+    );
+  };
+
   render() {
     const { navigation } = this.props;
     const kortoonId = navigation.getParam('kortoonId');
     const episodeId = navigation.getParam('episodeId');
-    return <View style={{ flex: 1 }}>{this.renderImages()}</View>;
+    return (
+      <View style={{ flex: 1 }}>
+        {this.state.isLoading && (
+          <View style={{ height: '100%' }}>
+            <LottieView
+              ref={animation => {
+                this.animation = animation;
+              }}
+              source={require('../../lottie/assets/biking_is_cool.json')}
+            />
+          </View>
+        )}
+        <FlatList
+          style={{
+            flex: 1
+          }}
+          data={this.state.images}
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
+        />
+      </View>
+    );
   }
 }
 
@@ -74,6 +92,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     height: finalHeigh,
-    width: finalWidth
+    width: finalWidth,
+    alignSelf: 'center'
   }
 });
