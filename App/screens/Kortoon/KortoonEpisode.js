@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback
 } from 'react-native';
+import LottieView from 'lottie-react-native';
 import { Card, CardItem } from 'native-base';
 import { getKortoon } from '../../utils/api';
 
@@ -19,20 +20,44 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 export default class KortoonEpisode extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      scrollY: new Animated.Value(0)
+      scrollY: new Animated.Value(0),
+      loadingScenes: true
     };
   }
   componentDidMount() {
+    this.animation.play();
+
     const kortoon = this.props.navigation.getParam('kortoon');
     getKortoon(kortoon._id).then(fetchedKortoon => {
-      console.log(fetchedKortoon);
-      this.setState({ kortoon: fetchedKortoon });
+      this.setState({ kortoon: fetchedKortoon, loadingScenes: false });
     });
   }
+  componentDidUpdate() {
+    if (this.state.loadingScenes) {
+      this.animation.reset();
+    }
+  }
   renderEpisodes() {
-    try {
+    if (this.state.loadingScenes) {
+      return (
+        <View
+          style={[
+            styles.scrollViewContent,
+            {
+              height: 250
+            }
+          ]}
+        >
+          <LottieView
+            ref={animation => {
+              this.animation = animation;
+            }}
+            source={require('../../lottie/assets/biking_is_cool.json')}
+          />
+        </View>
+      );
+    } else {
       let { kortoon } = this.state;
       let episodes = kortoon.episodes;
       const { navigation } = this.props;
@@ -53,16 +78,6 @@ export default class KortoonEpisode extends Component {
               </View>
             </TouchableWithoutFeedback>
           ))}
-        </View>
-      );
-    } catch (error) {
-      return (
-        <View style={styles.scrollViewContent}>
-          <ActivityIndicator
-            size="large"
-            color="#0000ff"
-            style={{ marginVertical: 30 }}
-          />
         </View>
       );
     }

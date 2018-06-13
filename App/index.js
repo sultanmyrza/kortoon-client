@@ -17,6 +17,6 @@ YellowBox.ignoreWarnings([
 
 export default class App extends Component {
   render() {
-    return <BasicExample />;
+    return <Kortoon />;
   }
 }
