@@ -18,7 +18,7 @@ const naturalWidth = 720;
 const naturalHeigh = 2880;
 
 const finalWidth = screen.width;
-const finalHeigh = (screen.height * naturalWidth) / screen.width;
+const finalHeigh = (screen.width * naturalHeigh) / naturalWidth;
 
 class KortoonScene extends Component {
   constructor(props) {
@@ -40,7 +40,13 @@ class KortoonScene extends Component {
       console.log(imageWidth, imageHeigh);
       console.log(naturalWidth, naturalHeigh);
       return (
-        <ScrollView style={{ backgroundColor: 'red', flex: 1 }}>
+        <ScrollView
+          directionalLockEnabled={false}
+          style={{
+            backgroundColor: 'red',
+            flex: 1
+          }}
+        >
           {this.state.images.map(image => (
             <Image
               style={styles.image}
@@ -67,7 +73,7 @@ export default KortoonScene;
 const styles = StyleSheet.create({
   image: {
     flex: 1,
-    height: Math.floor(finalHeigh),
+    height: finalHeigh,
     width: finalWidth
   }
 });
