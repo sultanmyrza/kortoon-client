@@ -12,6 +12,7 @@ import {
 import LottieView from 'lottie-react-native';
 import { Card, CardItem } from 'native-base';
 import { getKortoon } from '../../utils/api';
+import TrackComp from '../../components/Track';
 
 const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
@@ -73,9 +74,7 @@ export default class KortoonEpisode extends Component {
                 })
               }
             >
-              <View style={styles.row}>
-                <Text>{episode.title}</Text>
-              </View>
+              <TrackComp index={i} title={episode.title} />
             </TouchableWithoutFeedback>
           ))}
         </View>
