@@ -12,7 +12,7 @@ import {
 import LottieView from 'lottie-react-native';
 import { Card, CardItem } from 'native-base';
 import { getKortoon } from '../../utils/api';
-import TrackComp from '../../components/Track';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 const HEADER_MAX_HEIGHT = 300;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
@@ -74,7 +74,10 @@ export default class KortoonEpisode extends Component {
                 })
               }
             >
-              <TrackComp index={i} title={episode.title} />
+              <View style={styles.row}>
+                <Text style={{ fontSize: 24 }}>{episode.title}</Text>
+                <Icon name="eye" size={30} color="#900" />
+              </View>
             </TouchableWithoutFeedback>
           ))}
         </View>
@@ -207,11 +210,12 @@ const styles = StyleSheet.create({
     marginTop: HEADER_MAX_HEIGHT
   },
   row: {
+    flexDirection: 'row',
     height: 40,
     margin: 5,
     backgroundColor: '#D3D3D3',
-    justifyContent: 'center',
-    // alignItems: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 14
   }
 });

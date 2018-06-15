@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import StyleGuide from '../theme/StyleGuide';
 
 export default class TrackComp extends React.PureComponent {
@@ -17,6 +17,7 @@ export default class TrackComp extends React.PureComponent {
       <View style={styles.container}>
         <Text style={styles.step}>{`${index}`}</Text>
         <Text style={styles.track}>{title}</Text>
+        <Icon name="eye" size={24} />;
       </View>
     );
   }
@@ -24,6 +25,7 @@ export default class TrackComp extends React.PureComponent {
 
 const styles = StyleSheet.create({
   container: {
+    margin: 10,
     flexDirection: 'row',
     padding: StyleGuide.spacing.small
   },
