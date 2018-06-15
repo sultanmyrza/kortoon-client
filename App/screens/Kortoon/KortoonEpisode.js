@@ -75,7 +75,9 @@ export default class KortoonEpisode extends Component {
               }
             >
               <View style={styles.row}>
-                <Text style={{ fontSize: 24 }}>{episode.title}</Text>
+                <Text style={{ fontSize: 16 }}>
+                  {episode.title.slice(0, 23)}
+                </Text>
                 <Icon name="eye" size={30} color="#900" />
               </View>
             </TouchableWithoutFeedback>

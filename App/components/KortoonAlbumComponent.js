@@ -22,9 +22,6 @@ class KortoonAlbumComponent extends Component {
           <Image style={styles.image} source={{ uri: kortoon.photoUrl }} />
           <View style={styles.metadata}>
             <Text type="headline">{kortoon.title.slice(0, 9)}</Text>
-            <Text tyle="footnote" numberOfLines={1}>
-              {kortoon.summary.slice(0, 19)}
-            </Text>
           </View>
         </View>
       </TouchableHighlight>
