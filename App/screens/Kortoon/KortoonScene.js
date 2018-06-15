@@ -37,8 +37,8 @@ class KortoonScene extends Component {
     const { navigation } = this.props;
     const kortoonId = navigation.getParam('kortoonId');
     const episodeId = navigation.getParam('episodeId');
-    getScenes(kortoonId, episodeId).then(images => {
-      this.setState({ images, isLoading: false });
+    getScenes(kortoonId, episodeId).then(episode => {
+      this.setState({ images: episode.scenes, isLoading: false });
     });
   }
 

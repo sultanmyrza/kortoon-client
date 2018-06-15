@@ -8,7 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { getKortoons } from '../../utils/api';
-import KortoonRow from '../../components/KortoonRow';
+import KortoonAlbumComponent from '../../components/KortoonAlbumComponent';
 
 class KortoonList extends Component {
   constructor(props) {
@@ -28,7 +28,12 @@ class KortoonList extends Component {
       });
   }
   renderKortoon(kortoon) {
-    return <KortoonRow kortoon={kortoon} navigation={this.props.navigation} />;
+    return (
+      <KortoonAlbumComponent
+        kortoon={kortoon}
+        navigation={this.props.navigation}
+      />
+    );
   }
   render() {
     return (
