@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   Image
 } from 'react-native';
+import StyleGuide from '../theme/StyleGuide';
 class KortoonAlbumComponent extends Component {
   constructor(props) {
     super(props);
@@ -14,21 +15,19 @@ class KortoonAlbumComponent extends Component {
   render() {
     let { kortoon, navigation } = this.props;
     return (
-      <View style={styles.row}>
-        <TouchableHighlight
-          onPress={() => navigation.navigate('KortoonEpisode', { kortoon })}
-        >
-          <View style={styles.container}>
-            <Image source={{ uri: kortoon.photoUrl }} style={styles.image} />
-            <View style={styles.info}>
-              <Text style={styles.textHeader}>{kortoon.title.slice(0, 9)}</Text>
-              <Text style={styles.textSummary} numberOfLines={2}>
-                {kortoon.summary.slice(0, 19)}
-              </Text>
-            </View>
+      <TouchableHighlight
+        onPress={() => navigation.navigate('KortoonEpisode', { kortoon })}
+      >
+        <View style={styles.container}>
+          <Image style={styles.image} source={{ uri: kortoon.photoUrl }} />
+          <View style={styles.metadata}>
+            <Text type="headline">{kortoon.title.slice(0, 9)}</Text>
+            <Text tyle="footnote" numberOfLines={1}>
+              {kortoon.summary.slice(0, 19)}
+            </Text>
           </View>
-        </TouchableHighlight>
-      </View>
+        </View>
+      </TouchableHighlight>
     );
   }
 }
@@ -36,29 +35,23 @@ class KortoonAlbumComponent extends Component {
 export default KortoonAlbumComponent;
 
 const styles = StyleSheet.create({
-  row: {
-    flex: 1,
-    backgroundColor: 'blue',
-    margin: 10
-  },
   container: {
-    backgroundColor: 'pink'
+    overflow: 'hidden',
+    flex: 1,
+    marginVertical: 10,
+    marginLeft: StyleGuide.spacing.small,
+    marginBottom: 1,
+    ...StyleGuide.styles.borderRadius,
+    ...StyleGuide.styles.shadow
   },
   image: {
-    flex: 1,
-    backgroundColor: 'orange',
-    width: 100,
-    height: 100,
-    borderRadius: 5,
     overflow: 'hidden',
-    alignSelf: 'center'
+    height: 163,
+    width: 163,
+    borderTopLeftRadius: StyleGuide.styles.borderRadius.borderRadius,
+    borderTopRightRadius: StyleGuide.styles.borderRadius.borderRadius
   },
-  info: {
-    flex: 1,
-    paddingVertical: 5,
-    justifyContent: 'space-between',
-    paddingHorizontal: 3
-  },
-  textHeader: { color: 'red' },
-  textSummary: { marginTop: 5 }
+  metadata: {
+    padding: StyleGuide.spacing.tiny
+  }
 });

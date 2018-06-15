@@ -46,11 +46,11 @@ class KortoonList extends Component {
         )}
         {this.state.isLoading || (
           <FlatList
-            style={{ backgroundColor: 'green', width: '100%' }}
+            style={{ width: '100%' }}
             data={this.state.kortoons}
             keyExtractor={(x, i) => i.toString()}
             renderItem={({ item }) => this.renderKortoon(item)}
-            numColumns={3}
+            numColumns={2}
           />
         )}
       </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'yellow'
+    backgroundColor: '#e0e0e0'
   },
   horizontal: {
     padding: 10
